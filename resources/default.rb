@@ -32,6 +32,7 @@ attribute :defaults,          :kind_of => Array,            :default => []
 attribute :command_aliases,   :kind_of => Array,            :default => []
 attribute :env_keep_add,      :kind_of => Array,            :default => []
 attribute :env_keep_subtract, :kind_of => Array,            :default => []
+attribute :setenv,            :equal_to => [true, false],   :default => false
 
 # Set default for the supports attribute in initializer since it is
 # a 'reserved' attribute name
@@ -45,6 +46,7 @@ state_attrs :commands,
             :group,
             :host,
             :nopasswd,
+            :setenv,
             :runas,
             :template,
             :user,

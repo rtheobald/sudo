@@ -55,3 +55,18 @@ template "#{prefix}/sudoers" do
     :env_keep_subtract => node['authorization']['sudo']['env_keep_subtract']
   )
 end
+
+# if the node belongs to the "development" environment, create a config file
+# for the vagrant user, e.g. /etc/sudoers.d/vagrant
+# if node.chef_environment == 'development'
+
+if node[:instance_role] == 'vagrant'
+  sudo 'vagrant' do
+    user      'vagrant'
+    runas     'ALL'  # can run as any user
+    host      'ALL'  # from any Host/IP
+    nopasswd  true   # prepends the runas_spec with NOPASSWD
+    setenv    true   # prepends the runas_spec with SETENV
+    commands  ['/bin/']  # let the user run anything in /bin/ without a password
+  end
+end
